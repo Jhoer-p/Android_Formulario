@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -22,6 +23,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
     EditText etTelefono;
     EditText etEmail;
     EditText etDescripcion;
+    EditText etFecha;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,7 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         etTelefono = findViewById(R.id.etTelefono);
         etEmail = findViewById(R.id.etEmail);
         etDescripcion = findViewById(R.id.etDescripcion);
+        etFecha = findViewById(R.id.etFecha);
 
         //Creando un nuevo objeto de clase Contacto
         contacto = new Contacto("Nombre",0,0,0,"Telefono","Email","Descripcion");
@@ -51,15 +54,21 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
             @Override
             public void onClick(View v) {
                 setearDatos();
-                Intent intent = new Intent(MainActivity.this, ConfirmarDatos.class);
-                intent.putExtra(getResources().getString(R.string.pnombre),contacto.getNombre());
-                intent.putExtra(getResources().getString(R.string.pfechad),contacto.getFechad());
-                intent.putExtra(getResources().getString(R.string.pfecham),contacto.getFecham());
-                intent.putExtra(getResources().getString(R.string.pfechaa),contacto.getFechaa());
-                intent.putExtra(getResources().getString(R.string.ptelefono),contacto.getTelefono());
-                intent.putExtra(getResources().getString(R.string.pemail),contacto.getEmail());
-                intent.putExtra(getResources().getString(R.string.pdescripcion),contacto.getDescripcion());
-                startActivity(intent);
+                if(contacto.emptySpace() == false){
+                    Intent intent = new Intent(MainActivity.this, ConfirmarDatos.class);
+                    intent.putExtra(getResources().getString(R.string.pnombre),contacto.getNombre());
+                    intent.putExtra(getResources().getString(R.string.pfechad),contacto.getFechad());
+                    intent.putExtra(getResources().getString(R.string.pfecham),contacto.getFecham());
+                    intent.putExtra(getResources().getString(R.string.pfechaa),contacto.getFechaa());
+                    intent.putExtra(getResources().getString(R.string.ptelefono),contacto.getTelefono());
+                    intent.putExtra(getResources().getString(R.string.pemail),contacto.getEmail());
+                    intent.putExtra(getResources().getString(R.string.pdescripcion),contacto.getDescripcion());
+                    intent.putExtra(getResources().getString(R.string.pfecha),contacto.getFecha());
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getApplicationContext(), "Rellena todos los espacios", Toast.LENGTH_SHORT).show();
+                }
+
             }
         }));
     }
@@ -89,5 +98,6 @@ public class MainActivity extends AppCompatActivity implements DatePickerDialog.
         contacto.setTelefono(etTelefono.getText().toString());
         contacto.setEmail(etEmail.getText().toString());
         contacto.setDescripcion(etDescripcion.getText().toString());
+        contacto.setFecha(etFecha.getText().toString());
     }
 }

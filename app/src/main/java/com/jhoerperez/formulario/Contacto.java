@@ -9,6 +9,7 @@ public class Contacto {
     private String telefono;
     private String email;
     private String descripcion;
+    private String fecha;
 
     public Contacto(String nombre, int fechad, int fecham, int fechaa, String telefono, String email, String descripcion) {
         this.nombre = nombre;
@@ -74,5 +75,25 @@ public class Contacto {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(String fecha) {
+        this.fecha = fecha;
+    }
+
+    //Metodos propios
+
+    public boolean emptySpace(){
+        boolean empty;
+        if (nombre.length() == 0 || fecha.length() == 0 || telefono.length() == 0 || email.length() == 0 || descripcion.length() == 0){
+            empty = true;
+        }else{
+            empty = false;
+        }
+        return(empty);
     }
 }

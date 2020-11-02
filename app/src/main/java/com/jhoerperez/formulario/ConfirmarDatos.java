@@ -31,6 +31,7 @@ public class ConfirmarDatos extends AppCompatActivity {
         String telefono = parametros.getString(getResources().getString(R.string.ptelefono));
         String email = parametros.getString(getResources().getString(R.string.pemail));
         String descripcion = parametros.getString(getResources().getString(R.string.pdescripcion));
+        String fecha = parametros.getString(getResources().getString(R.string.pfecha));
 
         tvNombre = findViewById(R.id.tvNombre);
         tvFecha = findViewById(R.id.tvFecha);
@@ -42,7 +43,11 @@ public class ConfirmarDatos extends AppCompatActivity {
         String[] meses = getResources().getStringArray(R.array.meses);
 
         tvNombre.setText(nombre);
-        tvFecha.setText(fechad + " de " + meses[fecham-1] + " de " + fechaa);
+        if (fechaa == 0 && fecham == 0 && fechaa ==0){
+            tvFecha.setText(fecha);
+        }else{
+            tvFecha.setText(fechad + " de " + meses[fecham-1] + " de " + fechaa);
+        }
         tvTelefono.setText(telefono);
         tvEmail.setText(email);
         tvDescripcion.setText(descripcion);
